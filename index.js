@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const authRoute = require("./route/auth");
+const userAuthRoute = require("./route/user-auth");
+const adminAuthRoute = require("./route/admin-auth");
 const userRoute = require("./route/user");
 var cors = require("cors");
 dotenv.config();
@@ -19,8 +20,8 @@ mongoose
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth", authRoute);
-app.use("/api/users", userRoute);
+app.use("/api/userAuth", userAuthRoute);
+app.use("/api/adminAuth", adminAuthRoute);
 
 app.listen(8800, () => {
   console.log("Backend server is running!");
