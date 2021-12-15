@@ -4,6 +4,7 @@ const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
 //REGISTER
+
 router.post("/register", async (req, res) => {
   const newUser = new User({
     username: req.body.username,
@@ -34,7 +35,7 @@ router.post("/login", async (req, res) => {
       res.status(401).json("Wrong password or username!");
 
     const accessToken = jwt.sign(
-      { id: user._id, isAdmin: user.isAdmin },
+      { id: user._id},
       process.env.SECRET_KEY,
       { expiresIn: "5d" }
     );
