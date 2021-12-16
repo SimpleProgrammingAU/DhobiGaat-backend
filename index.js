@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userAuthRoute = require("./route/user-auth");
 const adminAuthRoute = require("./route/admin-auth");
-const userRoute = require("./route/user");
+const manipulateAuth = require("./route/manipulateAuth");
+const orderPlacement = require("./route/orderPlacement");
 var cors = require("cors");
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.use(express.json());
 
 app.use("/api/userAuth", userAuthRoute);
 app.use("/api/adminAuth", adminAuthRoute);
+app.use("/api/manipulateAuth", manipulateAuth);
+app.use("/api/orderPlacement", orderPlacement);
 
 app.listen(8800, () => {
   console.log("Backend server is running!");
