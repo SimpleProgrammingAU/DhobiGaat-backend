@@ -41,4 +41,38 @@ router.get("/totalOrder", async (req, res) => {
   }
 });
 
+// Get all pending order
+
+router.get("/pendingOrder", async (req, res) => {
+  try {
+    const orders = await order.find({ order_status: "processing" }).count();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get all completed order
+
+router.get("/completedOrder", async (req, res) => {
+  try {
+    const orders = await order.find({ order_status: "delivered" }).count();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get all cancelled order
+
+router.get("/cancelledOrder", async (req, res) => {
+  try {
+    const orders = await order.find({ order_status: "cancelled" }).count();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
 module.exports = router;
