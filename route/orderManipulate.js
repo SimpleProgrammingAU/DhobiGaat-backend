@@ -30,4 +30,15 @@ router.get("/find/:id", async (req, res) => {
   }
 });
 
+// GET total number of order
+
+router.get("/totalOrder", async (req, res) => {
+  try {
+    const orders = await order.count();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
