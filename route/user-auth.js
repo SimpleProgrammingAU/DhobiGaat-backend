@@ -9,6 +9,7 @@ router.post("/register", async (req, res) => {
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
+    profilePic: req.body.profilePic,
     password: CryptoJS.AES.encrypt(
       req.body.password,
       process.env.SECRET_KEY
@@ -34,11 +35,9 @@ router.post("/login", async (req, res) => {
     originalPassword !== req.body.password &&
       res.status(401).json("Wrong password or username!");
 
-    const accessToken = jwt.sign(
-      { id: user._id},
-      process.env.SECRET_KEY,
-      { expiresIn: "5d" }
-    );
+    const accessToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+      expiresIn: "5d",
+    });
 
     const { password, ...info } = user._doc;
 
