@@ -10,6 +10,7 @@ router.post("/newOrder", async (req, res) => {
     customer_id: req.body.customer_id,
     order_type: req.body.order_type,
     order_status: req.body.order_status,
+    order_price: req.body.order_price,
   });
   try {
     const orders = await newOrder.save();
