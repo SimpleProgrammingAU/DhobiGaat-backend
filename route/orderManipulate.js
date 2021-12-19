@@ -2,6 +2,7 @@ const router = require("express").Router();
 const order = require("../models/order");
 const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
+var messagebird = require("messagebird")("G7SBMP1y6OcTr24RVRcUva2pL");
 
 //post order in the DB
 
@@ -75,5 +76,27 @@ router.get("/cancelledOrder", async (req, res) => {
   }
 });
 
+// send message to the phone number
 
+router.get("/send", async (req, res) => {
+  try {
+    var phone_number = "+923029463719";
+    var params = {
+      originator: "TestMessage",
+      recipients: phone_number,
+      // recipients: ["+923161921936"],
+      body: "Your order has been accepted. We will pick your clothes within 40 minutes. Regard: E-DhobiGaat",
+    };
+
+    messagebird.messages.create(params, function (err, response) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log(response);
+    });
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 module.exports = router;
