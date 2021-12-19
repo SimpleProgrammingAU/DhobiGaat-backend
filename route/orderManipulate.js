@@ -114,7 +114,36 @@ router.get("/recentOrder/:id", async (req, res) => {
   }
 });
 
-// 
+// update the order_status of the order table
+
+router.put("/update/:id", async (req, res) => {
+  try {
+    const updatedOrder = await order.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+
+    var params = {
+      originator: "TestMessage",
+      recipients: phone_number,
+      body: "Your order has been accepted. We will pick your clothes within 40 minutes. Regard: E-DhobiGaat",
+    };
+
+    messagebird.messages.create(params, function (err, response) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log(response);
+    });
+
+    res.status(200).json(updatedOrder);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // send message to the phone number
 
