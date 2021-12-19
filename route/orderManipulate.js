@@ -12,6 +12,7 @@ router.post("/newOrder", async (req, res) => {
     order_type: req.body.order_type,
     order_status: req.body.order_status,
     order_price: req.body.order_price,
+    order_address: req.body.order_address,
   });
   try {
     const orders = await newOrder.save();
@@ -75,6 +76,20 @@ router.get("/cancelledOrder", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// Get/Render order on dhobie admin-panel 
+
+router.get("/recentOrder", async (req, res) => {
+  try {
+    const orders = await order.find({ order_status: "cancelled" }).count();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+
 
 // send message to the phone number
 

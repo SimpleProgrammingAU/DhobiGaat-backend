@@ -6,6 +6,7 @@ const orderSchema = new mongoose.Schema(
     order_type: { type: String, defaut: "normal" },
     order_status: { type: String, required: true },
     order_price: { type: Number, required: true },
+    order_address: { type: String, required: true },
   },
   { timestamps: true }
 );
