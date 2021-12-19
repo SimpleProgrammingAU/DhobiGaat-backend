@@ -45,6 +45,7 @@ module.exports = router;
 // });
 
 // //DELETE
+
 // router.delete("/:id", verify, async (req, res) => {
 //   if (req.user.id === req.params.id || req.user.isAdmin) {
 //     try {
@@ -60,7 +61,7 @@ module.exports = router;
 
 // //GET
 
-// router.get("/find/:id", async (req, res) => {
+//  router.get("/find/:id", async (req, res) => {
 //   try {
 //     const user = await User.findById(req.params.id);
 //     const { password, ...info } = user._doc;
