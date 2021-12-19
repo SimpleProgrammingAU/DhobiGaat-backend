@@ -3,7 +3,7 @@ const order = require("../models/order");
 const admin = require("../models/Admin");
 const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
-var messagebird = require("messagebird")("G7SBMP1y6OcTr24RVRcUva2pL");
+var messagebird = require("messagebird")("uzMuEWi4bZHRE9wRgdnJIPpG0");
 
 //post order in the DB
 
@@ -18,6 +18,28 @@ router.post("/newOrder", async (req, res) => {
   });
   try {
     const orders = await newOrder.save();
+
+    //code to send message to the selected dhobie
+
+    let dhobie_admin;
+    if (orders) {
+      dhobie_admin = await admin.findById(orders.admin_id);
+
+      var phone_number = dhobie_admin.mobile_no;
+      var params = {
+        originator: "TestMessage",
+        recipients: phone_number,
+        body: "Dear admin, You have a new order placed, check your inbox. Regard E-dhobiGaat",
+      };
+
+      messagebird.messages.create(params, function (err, response) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log(response);
+      });
+    }
+
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);
@@ -79,25 +101,20 @@ router.get("/cancelledOrder", async (req, res) => {
   }
 });
 
-// Get/Render order on dhobie admin-panel
+// Get or Render order on dhobie admin-panel
 
 router.get("/recentOrder/:id", async (req, res) => {
   try {
     const orders = await order.find(
       { admin_id: req.params.id } && { order_status: "processing" }
     );
-
-    // if (orders) {
-    //   const dhobie_admin = await admin.findById(req.params.id);
-    //   contact_number = dhobie_admin[0].mobile_no;
-    //   console.log(contact_number);
-    // }
-
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
+// 
 
 // send message to the phone number
 
