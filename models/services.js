@@ -6,70 +6,125 @@ const servicesSchema = new mongoose.Schema(
 
     service1: [
       {
-        service: {
+        image: {
           type: String,
           default: "",
         },
-        price: {
+        title: {
+          type: String,
+          default: "",
+        },
+        description: {
+          type: String,
+          default: "",
+        },
+        normal_price: {
           type: Number,
           default: "Number",
         },
+        urgent_price: {
+          type: Number,
+          default:"Number",
+        }
       },
     ],
     service2: [
       {
-        service: {
+        image: {
           type: String,
           default: "",
         },
-        price: {
+        title: {
+          type: String,
+          default: "",
+        },
+        description: {
+          type: String,
+          default: "",
+        },
+        normal_price: {
           type: Number,
           default: "Number",
         },
+        urgent_price: {
+          type: Number,
+          default:"Number",
+        }
       },
     ],
     service3: [
       {
-        service: {
+        image: {
           type: String,
           default: "",
         },
-        price: {
+        title: {
+          type: String,
+          default: "",
+        },
+        description: {
+          type: String,
+          default: "",
+        },
+        normal_price: {
           type: Number,
           default: "Number",
         },
+        urgent_price: {
+          type: Number,
+          default:"Number",
+        }
       },
     ],
 
     service4: [
       {
-        service: {
+        image: {
           type: String,
           default: "",
         },
-        price: {
+        title: {
+          type: String,
+          default: "",
+        },
+        description: {
+          type: String,
+          default: "",
+        },
+        normal_price: {
           type: Number,
           default: "Number",
         },
+        urgent_price: {
+          type: Number,
+          default:"Number",
+        }
       },
     ],
     service5: [
       {
-        service: {
+        image: {
           type: String,
           default: "",
         },
-        price: {
+        title: {
+          type: String,
+          default: "",
+        },
+        description: {
+          type: String,
+          default: "",
+        },
+        normal_price: {
           type: Number,
           default: "Number",
         },
+        urgent_price: {
+          type: Number,
+          default:"Number",
+        }
       },
     ],
-
-    // service2: { type: String, defaut: "" },
-    // service3: { type: String, defaut: "" },
-    // service4: { type: String, defaut: "" },
-    // service5: { type: String, defaut: "" },
 
     // service2: { type: Array, defaut: [] },
     // service3: { type: Array, defaut: [] },
