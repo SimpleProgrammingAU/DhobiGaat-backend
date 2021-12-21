@@ -3,7 +3,7 @@ const order = require("../models/order");
 const admin = require("../models/Admin");
 const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
-var messagebird = require("messagebird")("uzMuEWi4bZHRE9wRgdnJIPpG0");
+var messagebird = require("messagebird")("3IrLVHKY91Tg1CX24m1knZeRr");
 
 //post order in the DB
 
@@ -20,6 +20,8 @@ router.post("/newOrder", async (req, res) => {
     const orders = await newOrder.save();
 
     //code to send message to the selected dhobie
+
+    // write code to send push notification to the selected dhobie
 
     let dhobie_admin;
     if (orders) {
@@ -126,6 +128,12 @@ router.put("/update/:id", async (req, res) => {
       { new: true }
     );
 
+    // send message to the seleted user
+    // send push notification to the seleted user that your order has been accepted.
+
+    let phone_number = await admin.find({ admin_id: updatedOrder.admin_id });
+    // console.log(phone_number[0].mobile_no);
+    phone_number = phone_number[0].mobile_no;
     var params = {
       originator: "TestMessage",
       recipients: phone_number,
