@@ -8,6 +8,8 @@ const orderSchema = new mongoose.Schema(
     order_status: { type: String, required: true },
     order_price: { type: Number, required: true },
     order_address: { type: String, required: true },
+    order_pickDate: { type: String, required: true },
+    order_pickTime: { type: String, required: true },
   },
   { timestamps: true }
 );

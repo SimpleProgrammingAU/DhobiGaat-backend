@@ -15,6 +15,8 @@ router.post("/newOrder", async (req, res) => {
     order_status: req.body.order_status,
     order_price: req.body.order_price,
     order_address: req.body.order_address,
+    order_pickDate: req.body.order_pickDate,
+    order_pickTime: req.body.order_pickTime,
   });
   try {
     const orders = await newOrder.save();
