@@ -23,24 +23,24 @@ router.post("/newOrder", async (req, res) => {
 
     // write code to send push notification to the selected dhobie
 
-    let dhobie_admin;
-    if (orders) {
-      dhobie_admin = await admin.findById(orders.admin_id);
+    // let dhobie_admin;
+    // if (orders) {
+    //   dhobie_admin = await admin.findById(orders.admin_id);
 
-      var phone_number = dhobie_admin.mobile_no;
-      var params = {
-        originator: "TestMessage",
-        recipients: phone_number,
-        body: "Dear admin, You have a new order placed, check your inbox. Regard E-dhobiGaat",
-      };
+    //   var phone_number = dhobie_admin.mobile_no;
+    //   var params = {
+    //     originator: "TestMessage",
+    //     recipients: phone_number,
+    //     body: "Dear admin, You have a new order placed, check your inbox. Regard E-dhobiGaat",
+    //   };
 
-      messagebird.messages.create(params, function (err, response) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log(response);
-      });
-    }
+    //   messagebird.messages.create(params, function (err, response) {
+    //     if (err) {
+    //       return console.log(err);
+    //     }
+    //     console.log(response);
+    //   });
+    // }
 
     res.status(200).json(orders);
   } catch (err) {
@@ -131,21 +131,21 @@ router.put("/update/:id", async (req, res) => {
     // send message to the seleted user
     // send push notification to the seleted user that your order has been accepted.
 
-    let phone_number = await admin.find({ admin_id: updatedOrder.admin_id });
-    // console.log(phone_number[0].mobile_no);
-    phone_number = phone_number[0].mobile_no;
-    var params = {
-      originator: "TestMessage",
-      recipients: phone_number,
-      body: "Your order has been accepted. We will pick your clothes within 40 minutes. Regard: E-DhobiGaat",
-    };
+    // let phone_number = await admin.find({ admin_id: updatedOrder.admin_id });
+    // // console.log(phone_number[0].mobile_no);
+    // phone_number = phone_number[0].mobile_no;
+    // var params = {
+    //   originator: "TestMessage",
+    //   recipients: phone_number,
+    //   body: "Your order has been accepted. We will pick your clothes within 40 minutes. Regard: E-DhobiGaat",
+    // };
 
-    messagebird.messages.create(params, function (err, response) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log(response);
-    });
+    // messagebird.messages.create(params, function (err, response) {
+    //   if (err) {
+    //     return console.log(err);
+    //   }
+    //   console.log(response);
+    // });
 
     res.status(200).json(updatedOrder);
   } catch (err) {
