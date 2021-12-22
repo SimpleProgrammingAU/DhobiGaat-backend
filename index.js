@@ -9,6 +9,7 @@ const orderManipulate = require("./route/orderManipulate");
 const userManipulate = require("./route/userManipulate");
 const earningManipulate = require("./route/earningManipulate");
 const serviceManipulate = require("./route/serviceManipulate");
+const resetEmail = require("./route/resetEmail");
 var cors = require("cors");
 dotenv.config();
 
@@ -30,7 +31,7 @@ app.use("/api/adminManipulate", adminManipulate);
 app.use("/api/orderManipulate", orderManipulate);
 app.use("/api/userManipulate", userManipulate);
 app.use("/api/earningManipulate", earningManipulate);
-app.use("/api/serviceManipulate", serviceManipulate);
+app.use("/api/resetEmail", resetEmail);
 
 app.listen(8800, () => {
   console.log("Backend server is running!");
