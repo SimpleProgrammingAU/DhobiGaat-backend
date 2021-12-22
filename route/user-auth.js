@@ -84,13 +84,24 @@ router.put("/update/:id", async (req, res) => {
   }
 });
 
-//GET customer or admin-dhobie information
+//GET a user information
 
 router.get("/find/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...info } = user._doc;
     res.status(200).json(info);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//GET all user information information
+
+router.get("/find/", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);
   }

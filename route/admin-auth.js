@@ -97,4 +97,15 @@ router.get("/find/:id", async (req, res) => {
   }
 });
 
+//GET all admin-dhobie or customer information
+
+router.get("/find/", async (req, res) => {
+  try {
+    const admines = await adminUser.find();
+    res.status(200).json(admines);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
