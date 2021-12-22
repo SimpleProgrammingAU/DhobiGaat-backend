@@ -26,13 +26,13 @@ router.post("/resetPassword", (req, res) => {
           service: "gmail",
           auth: {
             user: "mi477048@gmail.com",
-            pass: "samarbagh1234",
+            pass: "",
           },
         });
 
         var mailOptions = {
           from: "E-dhobieGaat",
-          to: "hariskhan033192@gmail.com",
+          to: user.email,
           subject: "Password Reset",
           html: `
     <h3>You requested for password reset</h3>
