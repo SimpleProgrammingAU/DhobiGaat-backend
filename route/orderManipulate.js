@@ -50,11 +50,25 @@ router.post("/newOrder", async (req, res) => {
   }
 });
 
-//GET all order about a specfic customer
+//GET all order about a specfic admin-dhobie
 
 router.get("/find/:id", async (req, res) => {
   try {
     const orders = await order.find({ customer_id: req.params.id });
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//GET all processing and pending order about a specfic admin-dhobie
+// we will show these things on service with each dhobie service profile
+
+router.get("/findOrders/:id", async (req, res) => {
+  try {
+    const orders = await order
+      .find({ admin_id: req.params.id, order_status: "processing" })
+      .count();
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);
@@ -106,6 +120,8 @@ router.get("/cancelledOrder", async (req, res) => {
 });
 
 // Get or Render order on dhobie admin-panel
+// if it's not working properly then use this one
+// find({ admin_id: req.params.id, order_status: "processing" })
 
 router.get("/recentOrder/:id", async (req, res) => {
   try {

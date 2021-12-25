@@ -31,6 +31,7 @@ app.use("/api/adminManipulate", adminManipulate);
 app.use("/api/orderManipulate", orderManipulate);
 app.use("/api/userManipulate", userManipulate);
 app.use("/api/earningManipulate", earningManipulate);
+app.use("/api/serviceManipulate", serviceManipulate);
 app.use("/api/resetEmail", resetEmail);
 
 app.listen(8800, () => {

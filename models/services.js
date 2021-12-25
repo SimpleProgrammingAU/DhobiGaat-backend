@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const servicesSchema = new mongoose.Schema(
   {
     admin_id: { type: String, required: true, unique: true },
-
+    frequency_order: { type: Number, required: true },
     service1: [
       {
         image: {
@@ -24,8 +24,8 @@ const servicesSchema = new mongoose.Schema(
         },
         urgent_price: {
           type: Number,
-          default:"Number",
-        }
+          default: "Number",
+        },
       },
     ],
     service2: [
@@ -48,8 +48,8 @@ const servicesSchema = new mongoose.Schema(
         },
         urgent_price: {
           type: Number,
-          default:"Number",
-        }
+          default: "Number",
+        },
       },
     ],
     service3: [
@@ -72,8 +72,8 @@ const servicesSchema = new mongoose.Schema(
         },
         urgent_price: {
           type: Number,
-          default:"Number",
-        }
+          default: "Number",
+        },
       },
     ],
 
@@ -97,8 +97,8 @@ const servicesSchema = new mongoose.Schema(
         },
         urgent_price: {
           type: Number,
-          default:"Number",
-        }
+          default: "Number",
+        },
       },
     ],
     service5: [
@@ -121,8 +121,8 @@ const servicesSchema = new mongoose.Schema(
         },
         urgent_price: {
           type: Number,
-          default:"Number",
-        }
+          default: "Number",
+        },
       },
     ],
 
