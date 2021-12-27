@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const serviceAccount = require("./firebase.json");
 const dotenv = require("dotenv");
 const userAuthRoute = require("./route/user-auth");
 const adminAuthRoute = require("./route/admin-auth");
@@ -11,6 +13,7 @@ const earningManipulate = require("./route/earningManipulate");
 const serviceManipulate = require("./route/serviceManipulate");
 const resetEmail = require("./route/resetEmail");
 var cors = require("cors");
+const admin = require("firebase-admin");
 dotenv.config();
 
 mongoose
