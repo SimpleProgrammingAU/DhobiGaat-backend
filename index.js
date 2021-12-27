@@ -14,6 +14,7 @@ const serviceManipulate = require("./route/serviceManipulate");
 const resetEmail = require("./route/resetEmail");
 var cors = require("cors");
 const admin = require("firebase-admin");
+const port = process.env.PORT || 8800;
 dotenv.config();
 
 mongoose
@@ -37,6 +38,6 @@ app.use("/api/earningManipulate", earningManipulate);
 app.use("/api/serviceManipulate", serviceManipulate);
 app.use("/api/resetEmail", resetEmail);
 
-app.listen(8800, () => {
+app.listen(port, () => {
   console.log("Backend server is running!");
 });
