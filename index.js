@@ -13,6 +13,7 @@ const earningManipulate = require("./route/earningManipulate");
 const serviceManipulate = require("./route/serviceManipulate");
 const resetEmail = require("./route/resetEmail");
 var cors = require("cors");
+// var cors = require("cors");
 const admin = require("firebase-admin");
 const port = process.env.PORT || 8800;
 dotenv.config();
