@@ -65,7 +65,7 @@ router.get("/find/:id", async (req, res) => {
 
 router.get("/Hello", async (req, res) => {
   try {
-    res.status(200).json("Hello world!");
+    res.status(200).json("Hello world");
   } catch (err) {
     res.status(500).json(err);
   }
