@@ -3,7 +3,7 @@ const Admin = require("../models/Admin");
 const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
 
-//GET ALL dhobies
+//GET ALL dhobies information
 
 router.get("/", async (req, res) => {
   try {
@@ -19,7 +19,7 @@ module.exports = router;
 // //UPDATE
 
 // router.put("/:id", verify, async (req, res) => {
-  
+
 //   if (req.user.id === req.params.id || req.user.isAdmin) {
 //     if (req.body.password) {
 //       req.body.password = CryptoJS.AES.encrypt(
