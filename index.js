@@ -9,7 +9,6 @@ const adminAuthRoute = require("./route/admin-auth");
 const adminManipulate = require("./route/adminManipulate");
 const orderManipulate = require("./route/orderManipulate");
 const userManipulate = require("./route/userManipulate");
-const earningManipulate = require("./route/earningManipulate");
 const serviceManipulate = require("./route/serviceManipulate");
 const resetEmail = require("./route/resetEmail");
 var cors = require("cors");
@@ -34,7 +33,6 @@ app.use("/api/adminAuth", adminAuthRoute);
 app.use("/api/adminManipulate", adminManipulate);
 app.use("/api/orderManipulate", orderManipulate);
 app.use("/api/userManipulate", userManipulate);
-app.use("/api/earningManipulate", earningManipulate);
 app.use("/api/serviceManipulate", serviceManipulate);
 app.use("/api/resetEmail", resetEmail);
 

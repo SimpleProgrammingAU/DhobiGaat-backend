@@ -50,6 +50,59 @@ router.post("/newOrder", async (req, res) => {
   }
 });
 
+//GET total earning about specfic admin_dhobie
+
+router.get("/totalEarning/:id", async (req, res) => {
+  try {
+    const totalIncome = await order.aggregate([
+      {
+        $match: {
+          $and: [{ admin_id: req.params.id }, { order_status: "delivered" }],
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          total: {
+            $sum: "$order_price",
+          },
+        },
+      },
+    ]);
+
+    res.status(200).json(totalIncome);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//GET total earning about all admin_dhobie
+// Get all order price and add it that has completed status
+
+router.get("/totalIncome", async (req, res) => {
+  try {
+    const totalIncome = await order.aggregate([
+      {
+        $match: {
+          order_status: "delivered",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          total: {
+            $sum: "$order_price",
+          },
+        },
+      },
+    ]);
+
+    res.status(200).json(totalIncome);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //GET all order about a specfic admin-dhobie
 
 router.get("/find/:id", async (req, res) => {
