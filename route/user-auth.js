@@ -39,13 +39,15 @@ router.post("/getAuth", (req, res) => {
   });
 });
 
-//REGISTER
 let username,
   email,
   password,
   profilePic,
   randomNumber,
   owner = false;
+
+//REGISTER
+
 router.post("/register", async (req, res) => {
   username = req.body.username;
   email = req.body.email;
