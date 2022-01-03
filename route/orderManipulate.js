@@ -50,6 +50,67 @@ router.post("/newOrder", async (req, res) => {
   }
 });
 
+//GET total earning about a specfic dhobie_admin
+
+router.get("/totalEarning/:id", async (req, res) => {
+  try {
+    // Pick whole record of orders which is completed by the specfic dhobie
+
+    // const orders = await order.find({
+    //   admin_id: req.params.id,
+    //   order_status: "delivered",
+    // });
+
+    // add all the price of order who have been completed by specfic dhobie
+
+    const earnings = await order.aggregate([
+      {
+        $match: {
+          $and: [{ admin_id: req.params.id }, { order_status: "delivered" }],
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          total: {
+            $sum: "$order_price",
+          },
+        },
+      },
+    ]);
+
+    res.status(200).json(earnings);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//GET total earning about of whole orders that have been completed
+
+router.get("/totalIncome", async (req, res) => {
+  try {
+    const earnings = await order.aggregate([
+      {
+        $match: {
+          order_status: "delivered",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          total: {
+            $sum: "$order_price",
+          },
+        },
+      },
+    ]);
+
+    res.status(200).json(earnings);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //GET all order about a specfic admin-dhobie
 
 router.get("/find/:id", async (req, res) => {
@@ -63,13 +124,13 @@ router.get("/find/:id", async (req, res) => {
 
 //GET Hello world
 
-router.get("/Hello", async (req, res) => {
-  try {
-    res.status(200).json("Hello world");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// router.get("/Hello", async (req, res) => {
+//   try {
+//     res.status(200).json("Hello world");
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 //GET all processing and pending order about a specfic admin-dhobie
 // we will show these things on service with each dhobie service profile
