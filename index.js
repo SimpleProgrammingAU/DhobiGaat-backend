@@ -11,6 +11,7 @@ const orderManipulate = require("./route/orderManipulate");
 const userManipulate = require("./route/userManipulate");
 const serviceManipulate = require("./route/serviceManipulate");
 const resetEmail = require("./route/resetEmail");
+const feedback = require("./route/feedbackManipulation");
 var cors = require("cors");
 const admin = require("firebase-admin");
 const port = process.env.PORT || 8800;
@@ -35,6 +36,7 @@ app.use("/api/orderManipulate", orderManipulate);
 app.use("/api/userManipulate", userManipulate);
 app.use("/api/serviceManipulate", serviceManipulate);
 app.use("/api/resetEmail", resetEmail);
+app.use("/api/feedback", feedback);
 
 app.listen(port, () => {
   console.log("Backend server is running!");
