@@ -3,26 +3,113 @@ const adminUser = require("../models/Admin");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const verify = require("../verifyToken");
+var nodemailer = require("nodemailer");
+var messagebird = require("messagebird")("8Rko0KgjA6dXAX0z9wYvqW3RV");
 
-//REGISTER
+let username, email, password, profilePic, randomNumber, address, mobile_no;
+
+//REGISTER a admin_dhobie
 
 router.post("/register", async (req, res) => {
-  const newUser = new adminUser({
-    username: req.body.username,
-    email: req.body.email,
-    address: req.body.address,
-    mobile_no: req.body.mobile_no,
-    profilePic: req.body.profilePic,
-    password: CryptoJS.AES.encrypt(
-      req.body.password,
-      process.env.SECRET_KEY
-    ).toString(),
-  });
+  username = req.body.username;
+  email = req.body.email;
+  password = req.body.password;
+  owner = req.body.owner;
+  profilePic = req.body.profilePic;
+  address = req.body.address;
+  mobile_no = req.body.mobile_no;
+
+  const userExist = await adminUser.findOne({ email: req.body.email });
+  if (userExist) {
+    console.log(userExist);
+    return res.status(403).json("Admin_dhobie already exist in this email");
+  }
+
+  //generate a random number Id
+
+  randomNumber = Math.floor(100000 + Math.random() * 900000);
+  randomNumber = String(randomNumber);
+  randomNumber = randomNumber.substring(0, 7);
+  const userId = randomNumber;
   try {
+    const secret = process.env.SECRET_KEY + req.body.password;
+    const payload = {
+      email: req.body.email,
+      id: userId,
+    };
+
+    // set expiration time for the link
+
+    const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "mi477048@gmail.com",
+        pass: "samarbagh1234",
+      },
+    });
+
+    var mailOptions = {
+      from: "E-dhobieGaat",
+      to: req.body.email,
+      subject: "Verify your email",
+      html: `
+    <h3>Verify your email through the following link </h3>
+    <p><a href="http://localhost:3000/reset/${userId}/${token}">Email verification</a> </p>
+    `,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
+    res.status(200).json({ message: "Verify your email" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Now email has been verify save the user
+
+router.post("/new__password/:id/:token", async (req, res, next) => {
+  const { id, token } = req.params;
+
+  if (id !== randomNumber) {
+    return res.send("Invalid Id... ");
+  }
+
+  const secret = process.env.SECRET_KEY + password;
+  try {
+    const payload = jwt.verify(token, secret);
+    if (!payload) {
+      return res.status(402).json("Your token is expire");
+    }
+    const newUser = new adminUser({
+      username,
+      email,
+      address,
+      mobile_no,
+      profilePic: req.body.profilePic,
+      password: CryptoJS.AES.encrypt(
+        password,
+        process.env.SECRET_KEY
+      ).toString(),
+    });
+
     const user = await newUser.save();
-    res.status(201).json(user);
-  } catch (err) {
-    res.status(500).json(err);
+    res
+      .status(200)
+      .json(
+        "Your account has been successfully created go and login now on your account"
+      );
+    console.log(user);
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 
@@ -39,7 +126,7 @@ router.post("/login", async (req, res) => {
       res.status(401).json("Wrong password or username!");
 
     const accessToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-      expiresIn: "5d",
+      expiresIn: "90d",
     });
 
     const { password, ...info } = user._doc;
