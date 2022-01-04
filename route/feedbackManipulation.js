@@ -20,4 +20,15 @@ router.post("/post", verifyToken, async (req, res) => {
   }
 });
 
+// Get all the feedback on the screen
+
+router.get("/get", async (req, res) => {
+  try {
+    const feedback = await Feedback.find();
+    res.status(200).json(feedback);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
