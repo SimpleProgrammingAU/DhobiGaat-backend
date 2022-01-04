@@ -140,7 +140,7 @@ router.post("/new__password/:id/:token", async (req, res, next) => {
   try {
     const payload = jwt.verify(token, secret);
     if (!payload) {
-      return res.status(402).json("Your is expire");
+      return res.status(402).json("Your token is expire");
     }
     const newUser = new User({
       username,
