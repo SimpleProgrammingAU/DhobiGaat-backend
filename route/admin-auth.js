@@ -2,7 +2,7 @@ const router = require("express").Router();
 const adminUser = require("../models/Admin");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
-const verify = require("../verifyToken");
+const verifyToken = require("../verifyToken");
 var nodemailer = require("nodemailer");
 var messagebird = require("messagebird")("8Rko0KgjA6dXAX0z9wYvqW3RV");
 
@@ -138,8 +138,8 @@ router.post("/login", async (req, res) => {
 });
 
 // DELETE admin account
-
-router.delete("/delete/:id", async (req, res) => {
+// If the middleware not working somewhere just remove it, it will be perfactly working without verifytoken
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     await adminUser.findByIdAndDelete(req.params.id);
     res.status(200).json("Admin account has been deleted...");
@@ -150,7 +150,7 @@ router.delete("/delete/:id", async (req, res) => {
 
 // Update admin account
 
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
@@ -173,8 +173,9 @@ router.put("/update/:id", async (req, res) => {
 });
 
 //GET customer or admin-dhobie information
+// If the middleware not working somewhere just remove it, it will be perfactly working without verifytoken
 
-router.get("/find/:id", async (req, res) => {
+router.get("/find/:id", verifyToken, async (req, res) => {
   try {
     const user = await adminUser.findById(req.params.id);
     const { password, ...info } = user._doc;

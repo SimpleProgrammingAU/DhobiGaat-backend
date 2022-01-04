@@ -226,7 +226,7 @@ router.delete("/delete/:id", verifyToken, async (req, res) => {
 
 // Update admin account
 
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
@@ -249,8 +249,9 @@ router.put("/update/:id", async (req, res) => {
 });
 
 //GET a user information
+// If the middleware not working somewhere just remove it, it will be perfactly working without verifytoken
 
-router.get("/find/:id", async (req, res) => {
+router.get("/find/:id", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...info } = user._doc;
