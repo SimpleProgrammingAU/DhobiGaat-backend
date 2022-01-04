@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const verifyToken = require("../verifyToken");
 var nodemailer = require("nodemailer");
 var messagebird = require("messagebird")("8Rko0KgjA6dXAX0z9wYvqW3RV");
 
@@ -214,7 +215,7 @@ router.post("/login", async (req, res) => {
 
 // DELETE user account
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json("User account has been deleted...");
