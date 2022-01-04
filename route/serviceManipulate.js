@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const services = require("../models/services");
+const verifyToken = require("../verifyToken");
 
-//post admin services in the db
+// post admin services in the db
+// If the middleware not working somewhere just remove it, it will be perfactly working without verifytoken
 
-router.post("/post", async (req, res) => {
+router.post("/post", verifyToken, async (req, res) => {
   const newService = new services({
     admin_id: req.body.admin_id,
     frequency_order: req.body.frequency_order,
