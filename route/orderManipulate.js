@@ -22,7 +22,7 @@ router.post("/newOrder", async (req, res) => {
     const orders = await newOrder.save();
 
     //code to send message to the selected dhobie
-
+    // write code that send push notification to the selected user who placed order
     // write code to send push notification to the selected dhobie
 
     // let dhobie_admin;
