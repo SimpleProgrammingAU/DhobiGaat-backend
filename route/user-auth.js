@@ -59,7 +59,9 @@ router.post("/register", async (req, res) => {
   const userExist = await User.findOne({ email: req.body.email });
   if (userExist) {
     console.log(userExist);
-    return res.status(204).json("User already exist in this email");
+    return res
+      .status(403)
+      .json({ message: "User already exist in this email" });
   }
 
   //generate a random number Id
