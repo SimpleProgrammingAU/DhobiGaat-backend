@@ -60,7 +60,7 @@ router.post("/register", async (req, res) => {
   if (userExist) {
     console.log(userExist);
     return res
-      .status(403)
+      .status(203)
       .json({ message: "User already exist in this email" });
   }
 
