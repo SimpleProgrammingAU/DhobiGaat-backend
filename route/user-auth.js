@@ -107,7 +107,7 @@ router.post("/register", async (req, res) => {
       }
     });
 
-    res.status(200).json({ message: "Verify your email" });
+    res.status(200).json({ message: "Check your email for verification" });
   } catch (error) {
     console.log(error);
   }
