@@ -135,9 +135,9 @@ router.post("/register", async (req, res) => {
 router.post("/new__password/:id/:token", async (req, res, next) => {
   const { id, token } = req.params;
 
-  // if (id !== randomNumber) {
-  //   return res.send("Invalid Id... ");
-  // }
+  if (id !== randomNumber) {
+    return res.send("Invalid Id... ");
+  }
 
   const secret = process.env.SECRET_KEY + password;
   try {
