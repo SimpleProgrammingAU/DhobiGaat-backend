@@ -40,28 +40,22 @@ router.post("/getAuth", (req, res) => {
   });
 });
 
-let username,
-  email,
-  password,
-  profilePic,
-  randomNumber,
-  owner = false;
+let username, email, password, profilePic, randomNumber, address, mobile_no;
 
-//REGISTER
+//REGISTER a user
 
-router.post("/register", async (req, res) => {
+router.post("/registerSecure", async (req, res) => {
   username = req.body.username;
   email = req.body.email;
   password = req.body.password;
   owner = req.body.owner;
+  mobile_no = req.body.mobile_no;
   profilePic = req.body.profilePic;
 
   const userExist = await User.findOne({ email: req.body.email });
   if (userExist) {
     console.log(userExist);
-    return res
-      .status(203)
-      .json({ message: "User already exist in this email" });
+    return res.status(403).json("User already exist in this email");
   }
 
   //generate a random number Id
@@ -107,11 +101,10 @@ router.post("/register", async (req, res) => {
       }
     });
 
-    res.status(200).json({ message: "Check your email for verification" });
+    res.status(200).json({ message: "Verify your email" });
   } catch (error) {
     console.log(error);
   }
-
   // const newUser = new User({
   //   username: req.body.username,
   //   email: req.body.email,
@@ -135,9 +128,15 @@ router.post("/register", async (req, res) => {
 router.post("/new__password/:id/:token", async (req, res, next) => {
   const { id, token } = req.params;
 
-  if (id !== randomNumber) {
-    return res.send("Invalid Id... ");
-  }
+  console.log("id:", id);
+  console.log("randomNumber:", randomNumber);
+  console.log("password:", password);
+  console.log("username:", username);
+  console.log("token:", token);
+
+  // if (id !== randomNumber) {
+  //   return res.send("Invalid Id... ");
+  // }
 
   const secret = process.env.SECRET_KEY + password;
   try {
@@ -148,12 +147,12 @@ router.post("/new__password/:id/:token", async (req, res, next) => {
     const newUser = new User({
       username,
       email,
+      mobile_no,
       profilePic: req.body.profilePic,
       password: CryptoJS.AES.encrypt(
         password,
         process.env.SECRET_KEY
       ).toString(),
-      owner,
     });
 
     const user = await newUser.save();
@@ -170,25 +169,25 @@ router.post("/new__password/:id/:token", async (req, res, next) => {
 
 // //REGISTER
 
-// router.post("/register", async (req, res) => {
-
-//   const newUser = new User({
-//     username: req.body.username,
-//     email: req.body.email,
-//     profilePic: req.body.profilePic,
-//     password: CryptoJS.AES.encrypt(
-//       req.body.password,
-//       process.env.SECRET_KEY
-//     ).toString(),
-//     owner: req.body.owner,
-//   });
-//   try {
-//     const user = await newUser.save();
-//     res.status(201).json(user);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+router.post("/register", async (req, res) => {
+  const newUser = new User({
+    username: req.body.username,
+    email: req.body.email,
+    mobile_no: req.body.mobile_no,
+    profilePic: req.body.profilePic,
+    password: CryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.SECRET_KEY
+    ).toString(),
+    owner: req.body.owner,
+  });
+  try {
+    const user = await newUser.save();
+    res.status(201).json(user);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 //LOGIN
 
