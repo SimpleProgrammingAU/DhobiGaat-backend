@@ -181,9 +181,19 @@ router.post("/register", async (req, res) => {
     ).toString(),
     owner: req.body.owner,
   });
+
+  const userExist = await User.findOne({ email: req.body.email });
+
+  if (userExist) {
+    var addMessage2 = { Result: "User exist" };
+    console.log(userExist);
+    return res.status(201).json({ Result: "User already exist in this email" });
+  }
+
   try {
     const user = await newUser.save();
-    res.status(201).json(user);
+    var addMessage1 = { Result: "Registration success" };
+    res.status(200).json({ Result: "user register successfully" });
   } catch (err) {
     res.status(500).json(err);
   }

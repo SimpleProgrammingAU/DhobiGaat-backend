@@ -43,8 +43,7 @@ router.post("/newOrder", async (req, res) => {
     //     console.log(response);
     //   });
     // }
-
-    res.status(200).json(orders);
+    res.status(200).json({ Result: "order placed successfully" });
   } catch (err) {
     res.status(500).json(err);
   }
