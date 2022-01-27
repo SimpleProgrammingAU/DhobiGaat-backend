@@ -10,7 +10,7 @@ let username, email, password, profilePic, randomNumber, address, mobile_no;
 
 //REGISTER a admin_dhobie
 
-router.post("/register", async (req, res) => {
+router.post("/registerSecure", async (req, res) => {
   username = req.body.username;
   email = req.body.email;
   password = req.body.password;
@@ -113,6 +113,37 @@ router.post("/new__password/:id/:token", async (req, res, next) => {
   }
 });
 
+//REGISTER DHOBIE
+
+router.post("/register", async (req, res) => {
+  const newDhobie = new adminUser({
+    username: req.body.username,
+    email: req.body.email,
+    address: req.body.address,
+    mobile_no: req.body.mobile_no,
+    profilePic: req.body.profilePic,
+    password: CryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.SECRET_KEY
+    ).toString(),
+    owner: req.body.owner,
+  });
+
+  const dhobieExist = await adminUser.findOne({ email: req.body.email });
+
+  if (dhobieExist) {
+    console.log(dhobieExist);
+    return res.status(201).json({ Result: "User already exist in this email" });
+  }
+
+  try {
+    const dhobieAdmin = await newDhobie.save();
+    res.status(200).json({ Result: "Account created successfully" });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //LOGIN
 router.post("/login", async (req, res) => {
   try {
@@ -128,10 +159,10 @@ router.post("/login", async (req, res) => {
     const accessToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
       expiresIn: "90d",
     });
-
+    var addMessage = { Result: "Login success" };
     const { password, ...info } = user._doc;
 
-    res.status(200).json({ ...info, accessToken });
+    res.status(200).json({ ...info, ...addMessage, accessToken });
   } catch (err) {
     res.status(500).json(err);
   }

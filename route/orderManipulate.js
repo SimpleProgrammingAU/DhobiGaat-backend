@@ -138,6 +138,17 @@ router.get("/totalOrder", async (req, res) => {
   }
 });
 
+// GET total order for orderlist
+
+router.get("/totalOrderList", async (req, res) => {
+  try {
+    const orders = await order.find();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Get all pending order
 
 router.get("/pendingOrder", async (req, res) => {

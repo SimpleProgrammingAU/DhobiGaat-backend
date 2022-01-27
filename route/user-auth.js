@@ -167,7 +167,7 @@ router.post("/new__password/:id/:token", async (req, res, next) => {
   }
 });
 
-// //REGISTER
+ //REGISTER
 
 router.post("/register", async (req, res) => {
   const newUser = new User({
