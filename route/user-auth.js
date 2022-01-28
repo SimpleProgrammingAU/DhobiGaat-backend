@@ -167,7 +167,7 @@ router.post("/new__password/:id/:token", async (req, res, next) => {
   }
 });
 
- //REGISTER
+//REGISTER
 
 router.post("/register", async (req, res) => {
   const newUser = new User({
@@ -189,7 +189,6 @@ router.post("/register", async (req, res) => {
     console.log(userExist);
     return res.status(201).json({ Result: "User already exist in this email" });
   }
-
   try {
     const user = await newUser.save();
     var addMessage1 = { Result: "Registration success" };
@@ -222,6 +221,24 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ ...info, ...addMessage, accessToken });
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+//Owner admin hard coded login
+
+router.post("/login/owner", async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  try {
+    if (email == "ismail@gmail.com" && password == "pakistan12") {
+      const user = await User.findOne({ email: req.body.email });
+      const { password, ...info } = user._doc;
+      var addMessage = { Result: "Login successfully" };
+      res.status(200).json({ ...info, ...addMessage });
+      console.log(user);
+    }
+  } catch (err) {
+    res.status(500).json({ Result: "Email or password is invalid" });
   }
 });
 
