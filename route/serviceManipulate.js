@@ -5,7 +5,7 @@ const verifyToken = require("../verifyToken");
 // post admin services in the db
 // If the middleware not working somewhere just remove it, it will be perfactly working without verifytoken
 
-router.post("/post", verifyToken, async (req, res) => {
+router.post("/post", async (req, res) => {
   const newService = new services({
     admin_id: req.body.admin_id,
     frequency_order: req.body.frequency_order,
@@ -17,7 +17,9 @@ router.post("/post", verifyToken, async (req, res) => {
   });
   try {
     const services = await newService.save();
-    res.status(200).json(services);
+    res
+      .status(200)
+      .json({ Result: "your services has been created successfully" });
   } catch (err) {
     res.status(500).json(err);
   }
