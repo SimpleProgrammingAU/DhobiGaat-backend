@@ -29,7 +29,9 @@ router.post("/post", async (req, res) => {
 
 router.get("/getIsService/:id", async (req, res) => {
   try {
-    const service = await services.find({ admin_id: req.params.id }).select('isService');
+    const service = await services
+      .find({ admin_id: req.params.id })
+      .select("isService");
     res.status(200).json(service);
   } catch (err) {
     res.status(500).json(err);
