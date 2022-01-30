@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const services = require("../models/services");
+const services = require("../models/services1");
 const verifyToken = require("../verifyToken");
 
 // post admin services in the db
@@ -9,11 +9,11 @@ router.post("/post", verifyToken, async (req, res) => {
   const newService = new services({
     admin_id: req.body.admin_id,
     frequency_order: req.body.frequency_order,
-    service1: req.body.service1,
-    service2: req.body.service2,
-    service3: req.body.service3,
-    service4: req.body.service4,
-    service5: req.body.service5,
+    Services: req.body.Services,
+    // service2: req.body.service2,
+    // service3: req.body.service3,
+    // service4: req.body.service4,
+    // service5: req.body.service5,
   });
   try {
     const services = await newService.save();

@@ -236,9 +236,11 @@ router.post("/login/owner", async (req, res) => {
       var addMessage = { Result: "Login successfully" };
       res.status(200).json({ ...info, ...addMessage });
       console.log(user);
+    } else {
+      res.status(203).json({ Result: "Email or password is invalid" });
     }
   } catch (err) {
-    res.status(500).json({ Result: "Email or password is invalid" });
+    res.status(500).json(error);
   }
 });
 
