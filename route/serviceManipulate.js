@@ -25,11 +25,33 @@ router.post("/post", async (req, res) => {
   }
 });
 
+// Get isService value from Service table
+
+router.get("/getIsService/:id", async (req, res) => {
+  try {
+    const service = await services.find({ admin_id: req.params.id }).select('isService');
+    res.status(200).json(service);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Get services of admin from db
 
 router.get("/find/:id", async (req, res) => {
   try {
     const service = await services.find({ admin_id: req.params.id });
+    res.status(200).json(service);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get all services of admin from service table
+
+router.get("/get", async (req, res) => {
+  try {
+    const service = await services.find();
     res.status(200).json(service);
   } catch (err) {
     res.status(500).json(err);
