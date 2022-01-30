@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const servicesSchema = new mongoose.Schema(
   {
     admin_id: { type: String, required: true, unique: true },
-    frequency_order: { type: Number, required: true },
-    isService: { type: Boolean, default: false },
+    frequency_order: { type: String, required: true },
+    isService: { type: String, default: "false" },
     // Array: [
     Services: [
       {
@@ -12,24 +12,24 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         NormalNo: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         NormalPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         UrgentNO: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         UrgentPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         Checked: {
-          type: Boolean,
-          default: false,
+          type: String,
+          default: "false",
         },
         description: {
           type: String,
@@ -50,24 +50,24 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         NormalNo: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         NormalPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         UrgentNO: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         UrgentPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         Checked: {
-          type: Boolean,
-          default: false,
+          type: String,
+          default: "false",
         },
         description: {
           type: String,
@@ -88,24 +88,24 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         NormalNo: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         NormalPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         UrgentNO: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         UrgentPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         Checked: {
-          type: Boolean,
-          default: false,
+          type: String,
+          default: "false",
         },
         description: {
           type: String,
@@ -126,24 +126,24 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         NormalNo: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         NormalPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         UrgentNO: {
-          type: Number,
+          type: String,
           default: "Number",
         },
         UrgentPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         Checked: {
-          type: Boolean,
-          default: false,
+          type: String,
+          default: "false",
         },
         description: {
           type: String,
@@ -164,24 +164,24 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         NormalNo: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         NormalPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         UrgentNO: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         UrgentPrice: {
-          type: Number,
-          default: "Number",
+          type: String,
+          default: "",
         },
         Checked: {
-          type: Boolean,
-          default: false,
+          type: String,
+          default: "false",
         },
         description: {
           type: String,
