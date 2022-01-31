@@ -7,6 +7,7 @@ const AdminSchema = new mongoose.Schema(
     address: { type: String, required: true },
     mobile_no: { type: String, required: true },
     password: { type: String, required: true },
+    isService: { type: Boolean, default: false },
     profilePic: { type: String, defaut: "" },
   },
   { timestamps: true }

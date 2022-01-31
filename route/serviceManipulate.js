@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const services = require("../models/services1");
 const verifyToken = require("../verifyToken");
+const adminUser = require("../models/Admin");
 
 // post admin services in the db
 // If the middleware not working somewhere just remove it, it will be perfactly working without verifytoken
@@ -25,12 +26,27 @@ router.post("/post", async (req, res) => {
   }
 });
 
-// Get isService value from Service table
+// Make isService value "true" in the admin table
+
+router.get("/setIsService/:id", async (req, res) => {
+  try {
+    const service = await adminUser.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: { isService: true } },
+      { new: true }
+    );
+    res.status(200).json({Result: "isService value become true for this dhobi"});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get isService value from admin table
 
 router.get("/getIsService/:id", async (req, res) => {
   try {
-    const service = await services
-      .find({ admin_id: req.params.id })
+    const service = await adminUser
+      .find({ _id: req.params.id })
       .select("isService");
     res.status(200).json(service);
   } catch (err) {

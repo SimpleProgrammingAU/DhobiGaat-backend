@@ -17,6 +17,7 @@ router.post("/registerSecure", async (req, res) => {
   owner = req.body.owner;
   profilePic = req.body.profilePic;
   address = req.body.address;
+  isService = req.body.isService;
   mobile_no = req.body.mobile_no;
 
   const userExist = await adminUser.findOne({ email: req.body.email });
