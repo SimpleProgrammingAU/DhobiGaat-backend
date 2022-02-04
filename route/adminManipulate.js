@@ -14,12 +14,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+//GET all dhobiAdmin who have isService= true
+
+router.get("/getAllAdmines/", async (req, res) => {
+  try {
+    const dhobiAdmines = await Admin.find({ isService: true });
+    res.status(200).json(dhobiAdmines);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
 
 // //UPDATE
 
 // router.put("/:id", verify, async (req, res) => {
-  
+
 //   if (req.user.id === req.params.id || req.user.isAdmin) {
 //     if (req.body.password) {
 //       req.body.password = CryptoJS.AES.encrypt(
