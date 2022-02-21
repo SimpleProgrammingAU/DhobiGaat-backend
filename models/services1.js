@@ -27,8 +27,8 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         Checked: {
-          type: String,
-          default: "false",
+          type: Boolean,
+          default: false,
         },
         description: {
           type: String,
@@ -65,8 +65,8 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         Checked: {
-          type: String,
-          default: "false",
+          type: Boolean,
+          default: false,
         },
         description: {
           type: String,
@@ -103,8 +103,8 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         Checked: {
-          type: String,
-          default: "false",
+          type: Boolean,
+          default: false,
         },
         description: {
           type: String,
@@ -141,8 +141,8 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         Checked: {
-          type: String,
-          default: "false",
+          type: Boolean,
+          default: false,
         },
         description: {
           type: String,
@@ -179,8 +179,8 @@ const servicesSchema = new mongoose.Schema(
           default: "",
         },
         Checked: {
-          type: String,
-          default: "false",
+          type: Boolean,
+          default: false,
         },
         description: {
           type: String,
