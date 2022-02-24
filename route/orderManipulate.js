@@ -140,9 +140,11 @@ router.get("/totalOrder", async (req, res) => {
 
 // GET total order for orderlist
 
-router.get("/totalOrderList", async (req, res) => {
+router.get("/totalOrderList/:id", async (req, res) => {
   try {
-    const orders = await order.find();
+    const orders = await order.find({
+      $or: [{ customer_id: req.params.id }, { admin_id: req.params.id }],
+    });
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);

@@ -230,14 +230,13 @@ router.post("/login/owner", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   try {
-    if (email == "ismail@gmail.com" && password == "pakistan12") {
+    if (email == "ismail@gmail.com" && password == "pakistan12345") {
       const user = await User.findOne({ email: req.body.email });
       const { password, ...info } = user._doc;
       var addMessage = { Result: "Login successfully" };
       res.status(200).json({ ...info, ...addMessage });
-      console.log(user);
     } else {
-      res.status(203).json({ Result: "Email or password is invalid" });
+      res.status(203).json({ Result: "Email or password invalid" });
     }
   } catch (err) {
     res.status(500).json(error);
