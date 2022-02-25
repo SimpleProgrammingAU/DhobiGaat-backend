@@ -3,7 +3,7 @@ const Feedback = require("../models/Feedback");
 const verifyToken = require("../verifyToken");
 //post feedback in the DB
 
-router.post("/post", verifyToken, async (req, res) => {
+router.post("/post", async (req, res) => {
   const feedbackes = new Feedback({
     user_id: req.body.user_id,
     admin_id: req.body.admin_id,
