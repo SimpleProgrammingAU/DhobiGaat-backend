@@ -14,7 +14,8 @@ router.post("/post", verifyToken, async (req, res) => {
   });
   try {
     const orders = await feedbackes.save();
-    res.status(200).json(orders);
+    res.status(200).json({ Result: "Your query placed successfully" });
+    // res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);
   }
