@@ -102,6 +102,56 @@ router.get("/totalIncome", async (req, res) => {
   }
 });
 
+//GET total no of order about specfic user/dhobi
+
+router.get("/noOfOrder/:id", async (req, res) => {
+  try {
+    const orders = await order
+      .find({
+        $or: [{ customer_id: req.params.id }, { admin_id: req.params.id }],
+      })
+      .count();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+//GET total no of processing order about specfic user/dhobi
+
+router.get("/processingOrder/:id", async (req, res) => {
+  try {
+    const orders = await order
+      .find({
+        $or: [
+          { customer_id: req.params.id, order_status: "processing" },
+          { admin_id: req.params.id, order_status: "processing" },
+        ],
+      })
+      .count();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//GET total no of cancelled order about specfic user/dhobi
+
+router.get("/cancelledOrder/:id", async (req, res) => {
+  try {
+    const orders = await order
+      .find({
+        $or: [
+          { customer_id: req.params.id, order_status: "cancelled" },
+          { admin_id: req.params.id, order_status: "cancelled" },
+        ],
+      })
+      .count();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //GET all order about a specfic admin-dhobie
 
 router.get("/find/:id", async (req, res) => {
