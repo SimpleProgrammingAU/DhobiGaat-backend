@@ -102,6 +102,32 @@ router.get("/totalIncome", async (req, res) => {
   }
 });
 
+// Get all order price and add it that has delivered status for specfic dhobie
+
+router.get("/totalIncome/:id", async (req, res) => {
+  try {
+    const totalIncome = await order.aggregate({ admin_id: req.params.id }, [
+      {
+        $match: {
+          order_status: "delivered",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          total: {
+            $sum: "$order_price",
+          },
+        },
+      },
+    ]);
+
+    res.status(200).json(totalIncome);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //GET total no of order about specfic user/dhobi
 
 router.get("/noOfOrder/:id", async (req, res) => {
