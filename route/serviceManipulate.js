@@ -2,6 +2,7 @@ const router = require("express").Router();
 const services = require("../models/services1");
 const verifyToken = require("../verifyToken");
 const adminUser = require("../models/Admin");
+const order = require("../models/order");
 
 // post admin services in the db
 // If the middleware not working somewhere just remove it, it will be perfactly working without verifytoken
@@ -35,7 +36,9 @@ router.get("/setIsService/:id", async (req, res) => {
       { $set: { isService: true } },
       { new: true }
     );
-    res.status(200).json({Result: "isService value become true for this dhobi"});
+    res
+      .status(200)
+      .json({ Result: "isService value become true for this dhobi" });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -66,7 +69,40 @@ router.get("/find/:id", async (req, res) => {
 });
 
 // Get all services of admin from service table
+// Make the frequency login on screen here..
 
+router.get("/getServices", async (req, res) => {
+  try {
+    // const services = await services.find({});
+    // const renderServices = [];
+    // _.forEach(services, async (service) => {
+    //   const totalOrder = await order.countDocuments({
+    //     admin_id: service.admin_id,
+    //   });
+    //   if (service.frequency_order < totalOrder) {
+    //     // push to array or sth
+    //     renderServices.push(service);
+    //   }
+    // });
+    // res.status(200).json(renderServices);
+    // const { id } = req.state.user; // It is example of Admin Id, I am not sure where you can get it.
+    // const totalOrder = await order.countDocuments({ admin_id: id });
+    // const services = await services.find(
+    //   { admin_id: id },
+    //   { frequency_order: { $lt: totalOrder } }
+    // );
+    // const orders = await order.find().count();
+    // const service = await services.find();
+    // console.log(orders);
+    // console.log(service);
+    // const { Services, ...info } = service._doc;
+    // res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get all services of admin from service table
 router.get("/get", async (req, res) => {
   try {
     const service = await services.find();

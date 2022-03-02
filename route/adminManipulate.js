@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const Admin = require("../models/Admin");
+const order = require("../models/order");
 const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
-
+const ObjectId = require("mongodb").ObjectId;
 //GET ALL dhobies
 
 router.get("/", async (req, res) => {
@@ -16,10 +17,36 @@ router.get("/", async (req, res) => {
 
 //GET all dhobiAdmin who have isService= true
 
+// router.get("/getAllAdmines/", async (req, res) => {
+//   try {
+//     const dhobiAdmines = await Admin.find({ isService: true });
+//     res.status(200).json(dhobiAdmines);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+//GET all dhobiAdmin who have isService= true
+//  put frequency logic here
 router.get("/getAllAdmines/", async (req, res) => {
   try {
-    const dhobiAdmines = await Admin.find({ isService: true });
-    res.status(200).json(dhobiAdmines);
+    const allAdmines = await Admin.find({ isService: true });
+    let AdminesList = await Promise.all(
+      allAdmines.map(async (element) => {
+        // console.log(element.id);
+        var TotalOrders = await order
+          .find({ admin_id: element.id, order_status: "processing" })
+          .count();
+        // console.log(TotalOrders);
+
+        if (TotalOrders < parseInt(element.frequency_order)) {
+          return element;
+          // console.log(element);
+        }
+      })
+    );
+    const AdminesListes = AdminesList.filter((element) => element != null);
+    res.status(200).json(AdminesListes);
   } catch (err) {
     res.status(500).json(err);
   }

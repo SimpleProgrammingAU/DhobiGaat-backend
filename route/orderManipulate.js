@@ -3,6 +3,7 @@ const order = require("../models/order");
 const admin = require("../models/Admin");
 const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
+const services = require("../models/services1");
 var messagebird = require("messagebird")("3IrLVHKY91Tg1CX24m1knZeRr");
 
 //post order in the DB
@@ -290,21 +291,21 @@ router.put("/update/:id", async (req, res) => {
     // send message to the seleted user
     // send push notification to the seleted user that your order has been accepted.
 
-    let phone_number = await admin.find({ admin_id: updatedOrder.admin_id });
-    // console.log(phone_number[0].mobile_no);
-    phone_number = phone_number[0].mobile_no;
-    var params = {
-      originator: "TestMessage",
-      recipients: phone_number,
-      body: "Your order has been accepted. We will pick your clothes within 40 minutes. Regard: E-DhobiGaat",
-    };
+    // let phone_number = await admin.find({ admin_id: updatedOrder.admin_id });
+    // // console.log(phone_number[0].mobile_no);
+    // phone_number = phone_number[0].mobile_no;
+    // var params = {
+    //   originator: "TestMessage",
+    //   recipients: phone_number,
+    //   body: "Your order has been accepted. We will pick your clothes within 40 minutes. Regard: E-DhobiGaat",
+    // };
 
-    messagebird.messages.create(params, function (err, response) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log(response);
-    });
+    // messagebird.messages.create(params, function (err, response) {
+    //   if (err) {
+    //     return console.log(err);
+    //   }
+    //   console.log(response);
+    // });
 
     res.status(200).json(updatedOrder);
   } catch (err) {

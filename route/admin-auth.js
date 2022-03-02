@@ -123,6 +123,7 @@ router.post("/register", async (req, res) => {
     address: req.body.address,
     mobile_no: req.body.mobile_no,
     profilePic: req.body.profilePic,
+    frequency_order: req.body.frequency_order,
     password: CryptoJS.AES.encrypt(
       req.body.password,
       process.env.SECRET_KEY
@@ -223,6 +224,22 @@ router.get("/find/", async (req, res) => {
   try {
     const admines = await adminUser.find();
     res.status(200).json(admines);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+router.put("/updateFrequencyOrder/:id", async (req, res) => {
+  try {
+    const updatedUser = await adminUser.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
   } catch (err) {
     res.status(500).json(err);
   }

@@ -9,6 +9,7 @@ const AdminSchema = new mongoose.Schema(
     password: { type: String, required: true },
     isService: { type: Boolean, default: false },
     profilePic: { type: String, defaut: "" },
+    frequency_order: { type: String },
   },
   { timestamps: true }
 );

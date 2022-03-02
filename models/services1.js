@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const servicesSchema = new mongoose.Schema(
   {
     admin_id: { type: String, required: true, unique: true },
-    frequency_order: { type: String, required: true },
+    // frequency_order: { type: String, required: true },
     // Array: [
     Services: [
       {
