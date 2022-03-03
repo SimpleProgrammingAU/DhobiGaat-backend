@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const order = require("../models/order");
-const admin = require("../models/Admin");
+const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const verify = require("../verifyToken");
 const services = require("../models/services1");
@@ -28,7 +28,7 @@ router.post("/newOrder", async (req, res) => {
 
     // let dhobie_admin;
     // if (orders) {
-    //   dhobie_admin = await admin.findById(orders.admin_id);
+    //   dhobie_admin = awUser.findById(orders.admin_id);
 
     //   var phone_number = dhobie_admin.mobile_no;
     //   var params = {
@@ -228,6 +228,34 @@ router.get("/totalOrderList/:id", async (req, res) => {
   }
 });
 
+// GET total order for dhobiList orderlist
+
+router.get("/totalOrderesList/:id", async (req, res) => {
+  try {
+    // const data1 = await order({ admin_id: req.params.id });
+    // let AdminesList = await Promise.all(
+    //   data1.map(async (element) => {
+    //     var userInfo = await User.find({ _id: element.customer_id });
+    //     return element;
+    //   })
+    // );
+    const data = await order.aggregate([
+      {
+        $lookup: {
+          from: "User",
+          localField: "customer_id",
+          foreignField: "_id",
+          as: "addInfo",
+        },
+      },
+    ]);
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Get all pending order
 
 router.get("/pendingOrder", async (req, res) => {
@@ -277,7 +305,7 @@ router.get("/recentOrder/:id", async (req, res) => {
 });
 
 // update the order_status of the order table
-
+// Get data from two table..
 router.put("/update/:id", async (req, res) => {
   try {
     const updatedOrder = await order.findByIdAndUpdate(
@@ -287,7 +315,6 @@ router.put("/update/:id", async (req, res) => {
       },
       { new: true }
     );
-
     // send message to the seleted user
     // send push notification to the seleted user that your order has been accepted.
 

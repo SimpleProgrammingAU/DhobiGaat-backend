@@ -35,7 +35,7 @@ router.get("/getAllAdmines/", async (req, res) => {
       allAdmines.map(async (element) => {
         // console.log(element.id);
         var TotalOrders = await order
-          .find({ admin_id: element.id, order_status: "processing" })
+          .find({ admin_id: element.id, order_status: "PROCESSING" })
           .count();
         // console.log(TotalOrders);
 
