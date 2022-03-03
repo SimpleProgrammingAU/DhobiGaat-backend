@@ -229,7 +229,7 @@ router.get("/find/", async (req, res) => {
   }
 });
 
-
+//  update freequency of admin
 router.put("/updateFrequencyOrder/:id", async (req, res) => {
   try {
     const updatedUser = await adminUser.findByIdAndUpdate(
@@ -239,7 +239,7 @@ router.put("/updateFrequencyOrder/:id", async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json(updatedUser);
+    res.status(200).json({ Result: "frequency updated" });
   } catch (err) {
     res.status(500).json(err);
   }

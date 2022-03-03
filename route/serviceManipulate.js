@@ -151,10 +151,10 @@ router.put("/updateService/:id", async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json(updatedService);
-    // res
-    //   .status(200)
-    //   .json({ Result: "Your service has been updated successfully" });
+    // res.status(200).json(updatedService);
+    res
+      .status(200)
+      .json({ Result: "Your service has been updated successfully" });
   } catch (err) {
     res.status(500).json(err);
   }
