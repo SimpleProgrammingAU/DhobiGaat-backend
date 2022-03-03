@@ -27,6 +27,21 @@ router.get("/", async (req, res) => {
 // });
 
 //GET all dhobiAdmin who have isService= true
+
+router.get("/letestOrder/", async (req, res) => {
+  try {
+    const latestOrders = await order.find({
+      _id: {
+        $gt: ObjectId.createFromTime(Date.now() / 1000 - 24 * 60 * 60),
+      },
+    });
+    res.status(200).json(latestOrders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//GET all dhobiAdmin who have isService= true
 //  put frequency logic here
 router.get("/getAllAdmines/", async (req, res) => {
   try {
@@ -35,7 +50,13 @@ router.get("/getAllAdmines/", async (req, res) => {
       allAdmines.map(async (element) => {
         // console.log(element.id);
         var TotalOrders = await order
-          .find({ admin_id: element.id, order_status: "PROCESSING" })
+          .find({
+            _id: {
+              $gt: ObjectId.createFromTime(Date.now() / 1000 - 24 * 60 * 60),
+            },
+            admin_id: element.id,
+            order_status: "PROCESSING",
+          })
           .count();
         // console.log(TotalOrders);
 
