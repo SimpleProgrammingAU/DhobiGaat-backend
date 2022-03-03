@@ -69,8 +69,6 @@ router.get("/find/:id", async (req, res) => {
 });
 
 // Get all services of admin from service table
-// Make the frequency login on screen here..
-
 router.get("/getServices", async (req, res) => {
   try {
     // const services = await services.find({});
@@ -138,6 +136,25 @@ router.post("/updateFreqeuncy/:id", async (req, res) => {
     );
 
     res.status(200).json(orderFrequency);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// update services
+router.put("/updateService/:id", async (req, res) => {
+  try {
+    const updatedService = await services.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedService);
+    // res
+    //   .status(200)
+    //   .json({ Result: "Your service has been updated successfully" });
   } catch (err) {
     res.status(500).json(err);
   }
