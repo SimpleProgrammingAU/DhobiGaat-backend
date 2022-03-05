@@ -235,7 +235,9 @@ router.get("/totalOrderList/:id", async (req, res) => {
 
 router.get("/totalOrderesList/:id", async (req, res) => {
   try {
-    const userdata = await order.find().populate("orderRelate");
+    const userdata = await order
+      .find({ admin_id: req.params.id })
+      .populate("orderRelate");
     console.log(userdata);
     res.status(200).json(userdata);
   } catch (err) {
