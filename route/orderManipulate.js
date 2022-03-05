@@ -18,6 +18,7 @@ router.post("/newOrder", async (req, res) => {
     order_address: req.body.order_address,
     order_pickDate: req.body.order_pickDate,
     order_pickTime: req.body.order_pickTime,
+    orderRelate: req.body.customer_id,
   });
   try {
     const orders = await newOrder.save();
@@ -234,8 +235,8 @@ router.get("/totalOrderList/:id", async (req, res) => {
 
 router.get("/totalOrderesList/:id", async (req, res) => {
   try {
-    const userdata = await order.find().populate(orderRelate);
-    console.log(data);
+    const userdata = await order.find().populate("orderRelate");
+    console.log(userdata);
     res.status(200).json(userdata);
   } catch (err) {
     res.status(500).json(err);
