@@ -10,6 +10,7 @@ const orderSchema = new mongoose.Schema(
     order_address: { type: String, required: true },
     order_pickDate: { type: String, required: true },
     order_pickTime: { type: String, required: true },
+    orderRelate: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   },
   { timestamps: true }
 );

@@ -228,29 +228,15 @@ router.get("/totalOrderList/:id", async (req, res) => {
   }
 });
 
+// You do change this api accordingly...
+
 // GET total order for dhobiList orderlist
 
 router.get("/totalOrderesList/:id", async (req, res) => {
   try {
-    // const data1 = await order({ admin_id: req.params.id });
-    // let AdminesList = await Promise.all(
-    //   data1.map(async (element) => {
-    //     var userInfo = await User.find({ _id: element.customer_id });
-    //     return element;
-    //   })
-    // );
-    const data = await order.aggregate([
-      {
-        $lookup: {
-          from: "User",
-          localField: "customer_id",
-          foreignField: "_id",
-          as: "addInfo",
-        },
-      },
-    ]);
-
-    res.status(200).json(data);
+    const userdata = await order.find().populate(orderRelate);
+    console.log(data);
+    res.status(200).json(userdata);
   } catch (err) {
     res.status(500).json(err);
   }
